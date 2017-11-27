@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TopBar from './components/TopBar';
 import Trainer from './components/Trainer';
 
 const audioCtx = new AudioContext();
@@ -16,7 +17,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div>NavBar</div>
+                <TopBar/>
                 <div>SideMenu</div>
                 <Trainer/>
             </div>

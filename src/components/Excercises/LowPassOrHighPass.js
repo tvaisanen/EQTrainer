@@ -19,7 +19,7 @@ const answerStates = {
     NOT_ANSWERED: 'not',
     CORRECT: 'correct',
     WRONG: 'wrong'
-}
+};
 
 class LowPassOrHighPass extends Component {
     constructor(props) {
@@ -128,6 +128,7 @@ class LowPassOrHighPass extends Component {
         const answeringDisabled = this.state.answeringDisabled;
         return (
             <div className="excercise" style={{borderStyle: 'solid'}}>
+                <h3>Identify between High Pass and Low Pass filters.</h3>
                 <div><RaisedButton
                       icon={<AVPlayArrow />}
                       onClick={() => this.repeat()}

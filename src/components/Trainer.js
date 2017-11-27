@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import LowPassOrHighPass from './Excercises/LowPassOrHighPass';
+import LowPassCutOffLow from './Excercises/LowPassCutOffLow';
 import { playFilteredWhiteNoise } from './Excercises/audioUtils';
 
 class Trainer extends Component {
@@ -12,7 +13,7 @@ class Trainer extends Component {
         return (
             <div>
                 Trainer
-                <LowPassOrHighPass/>
+                <LowPassCutOffLow/>
             </div>
         )
     }

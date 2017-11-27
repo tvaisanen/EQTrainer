@@ -34,32 +34,21 @@ export const playWhiteNoise = (props) => {
 };
 
 export const playFilteredWhiteNoise = (props) => {
-    console.debug('playFilteredWhiteNoise()');
+    console.group('playFilteredWhiteNoise(props)');
+    console.debug(props);
+    console.groupEnd();
 
     const source = audioCtx.createBufferSource();
     source.buffer = createNoiseBuffer(props.time);
+
     const filter = audioCtx.createBiquadFilter();
-    console.debug(typeof props.filterOptions);
-    console.debug("is array = " + Array.isArray(props.filterOptions))
-    console.debug(typeof props.filterOptions);
-    console.debug(props.filterOptions.length);
 
-    const optionsCount = props.filterOptions.length | 0;
 
-    if (optionsCount > 1) {
-        console.debug('new');
-        filter.type = props.filterOptions[Math.floor(Math.random() * 2)];
-        filter.frequency.value = 1000;
+    filter.filterType = props.params.filter;
+    filter.frequency.value = props.params.frequency;
+    filter.gain.value = props.params.gain;
 
-    } else {
-        // this is for repeating with specified values
-        console.debug('repeated');
-        console.debug(props.filterOptions);
-        filter.filterType = props.filterOptions.type;
-        filter.frequency.value = props.filterOptions.frequency;
-    }
 
-    filter.gain.value = 1;
     console.groupCollapsed('playFilteredWhiteNoise()');
     console.debug(filter);
     console.debug('filter: ' + filter.type);
@@ -71,5 +60,6 @@ export const playFilteredWhiteNoise = (props) => {
     source.start();
     return {type: filter.type, frequency: filter.frequency.value}
 };
+
 
 

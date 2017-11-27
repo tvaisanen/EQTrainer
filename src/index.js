@@ -7,10 +7,15 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+// This replaces the textColor value on the palette
+// and then update the keys for each component that depends on it.
+// More on Colors: http://www.material-ui.com/#/customization/colors
 
 
 ReactDOM.render(
-    <MuiThemeProvider>
+  <MuiThemeProvider>
     <App />
   </MuiThemeProvider>
   ,
