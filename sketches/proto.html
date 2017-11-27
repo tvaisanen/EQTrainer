@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+<div align="center">
+    <ul id="filterParams"></ul>
+    <p><span id="currentFilter"></span></p>
+    <div>    <canvas id="canvasFreq" width="400" height="200"
+            style="border: 2px solid black;background-color: rgba(128, 128, 128, 0.16);"></canvas>
+    </div>
+    <canvas id="canvas" width="400" height="200"
+            style="border: 2px solid black;background-color: rgba(128, 128, 128, 0.16);"></canvas>
+    <hr/>
+    <button id="btnNewQuestion">New</button>
+    <hr/>
+    <p>
+        <button id="btnLowPass">Low Pass</button>
+        <button id="btnBandPass">Band Pass</button>
+        <button id="btnHighPass">High Pass</button>
+        <button id="btnAllPass">All Pass</button>
+    <p/>
+        <button id="btnLowShelf">Low Shelf</button>
+        <button id="btnNotch">Notch</button>
+        <button id="btnPeaking">Peaking</button>
+        <button id="btnHighSelf">High Shelf</button>
+    <hr/>
+    <p><span id="selection"></span></p>
+    <span id="right"></span> | <span id="total"></span>
+    <hr/>
+
+    <p>Biquad filter frequency response for: </p>
+    <ul class="freq-response-output">
+    </ul>
+</div>
+
+<script type="text/javascript" src="proto.js">
+<script type="text/javascript" src="proto_v_0.1.js">
+
+
+</script>
+</body>
+</html>
