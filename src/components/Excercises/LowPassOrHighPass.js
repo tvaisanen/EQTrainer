@@ -103,7 +103,7 @@ class LowPassOrHighPass extends Component {
 
     wrongAnswer(){
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
-        this.setState({answerState: <ActionThumbDown/>})
+        this.setState({answerState: <ActionThumbDown style={{size: '30px'}}/>})
     }
 
     answer(answer) {
@@ -139,6 +139,7 @@ class LowPassOrHighPass extends Component {
                 {this.state.answerButtons[1].render(answeringDisabled)}
                 <div>
                     <RaisedButton
+
                       icon={<ContentForward/>}
                       onClick={() => this.newQuestion()}
                       style={style}
@@ -148,7 +149,6 @@ class LowPassOrHighPass extends Component {
                 <hr/>
                 <div>{this.state.correctAnswers} / {this.state.wrongAnswers}</div>
                 <div>{this.state.questionCount}</div>
-                <div><p>{filterType} - {filterFrequency}</p></div>
             </div>
         )
     }
