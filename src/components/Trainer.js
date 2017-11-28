@@ -12,7 +12,6 @@ class Trainer extends Component {
     render(){
         return (
             <div>
-                Trainer
                 <LowPassCutOffLow/>
             </div>
         )

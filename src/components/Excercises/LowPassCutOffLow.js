@@ -16,7 +16,9 @@ import AVPlayArrow from 'material-ui/svg-icons/av/play-arrow';
 import ContentForward from 'material-ui/svg-icons/content/forward';
 
 const style = {
-    largeIcon: {width: 60, height: 60,},
+    icon: {width: 68, height: 68, color:'black'},
+    iconCorrect: {width: 68, height: 68, color:'green'},
+    iconWrong: {width: 68, height: 68, color:'red'},
     btn: {margin: 12},
     correct: {color: 'green', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
     wrong: {color: 'red', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
@@ -30,7 +32,7 @@ class LowPassCutOffLow extends Component {
             debugCount: 0,
             filter: 'lowpass',
             correctAnswer: '',
-            answerState: <ActionHelp style={style.largeIcon}/>,
+            answerState: <ActionHelp style={style.icon}/>,
             answeringDisabled: false,
             questionCount: 0,
             correctAnswers: 0,
@@ -116,17 +118,17 @@ class LowPassCutOffLow extends Component {
 
     enableAnswering() {
         this.setState({answeringDisabled: false})
-        this.setState({answerState: <ActionHelp style={style.largeIcon}/>});
+        this.setState({answerState: <ActionHelp style={style.icon}/>});
     }
 
     correctAnswer() {
         this.setState({correctAnswers: this.state.correctAnswers + 1});
-        this.setState({answerState: <ActionThumbUp style={style.largeIcon}/>})
+        this.setState({answerState: <ActionThumbUp style={style.iconCorrect}/>})
     }
 
     wrongAnswer() {
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
-        this.setState({answerState: <ActionThumbDown style={style.largeIcon}/>})
+        this.setState({answerState: <ActionThumbDown style={style.iconWrong}/>})
     }
 
     answer(answer) {
@@ -168,8 +170,7 @@ class LowPassCutOffLow extends Component {
                     />
 
                 </div>
-                <p>correct: {JSON.stringify(this.state.correctAnswer)}</p>
-                <p>played: {JSON.stringify(this.state.played)}</p>
+
                 <hr/>
                 <div><span style={style.correct}>{this.state.correctAnswers}</span>|
                     <span style={style.wrong}>{this.state.wrongAnswers}</span></div>
