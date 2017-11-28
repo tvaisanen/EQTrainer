@@ -1,4 +1,8 @@
 /**
+ * Created by tvaisanen on 11/28/17.
+ */
+
+/**
  * Created by tvaisanen on 11/27/17.
  */
 
@@ -24,7 +28,7 @@ const style = {
     wrong: {color: 'red', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
 };
 
-class LowPassCutOffLow extends Component {
+class LowPassCutOffHigh extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,7 +59,7 @@ class LowPassCutOffLow extends Component {
     }
 
     componentDidUpdate(){
-        console.info('Component Updated!');
+        console.info('Component Updated!')
         console.info(this.state);
     }
 
@@ -117,7 +121,7 @@ class LowPassCutOffLow extends Component {
     }
 
     enableAnswering() {
-        this.setState({answeringDisabled: false});
+        this.setState({answeringDisabled: false})
         this.setState({answerState: <ActionHelp style={style.icon}/>});
     }
 
@@ -146,7 +150,7 @@ class LowPassCutOffLow extends Component {
 
     view(answerState){
              return (
-                <div><h3>Low Pass Cut Off Low</h3>
+                <div><h3>Low Pass cut off frequencies</h3>
                 <span>Question # {this.state.questionCount}</span>
                 <div><RaisedButton
                     icon={<AVPlayArrow />}
@@ -204,4 +208,4 @@ class LowPassCutOffLow extends Component {
     }
 }
 
-export default LowPassCutOffLow;
+export default LowPassCutOffHigh;

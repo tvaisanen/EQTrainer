@@ -1,4 +1,27 @@
 
-.excercise {
+.exercise {
     background-color: #ded0d2;
+    align-content: center;
+    justify-content: center;
+    left-margin: 20%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    background-color: #e4f5ff;
+    overflow: auto;
+
+}
+
+.title {
+    justify-content: center;
+}
+
+.answer-buttons {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
 }

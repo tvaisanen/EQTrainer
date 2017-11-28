@@ -13,6 +13,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 // and then update the keys for each component that depends on it.
 // More on Colors: http://www.material-ui.com/#/customization/colors
 
+window.debug = true;
 
 ReactDOM.render(
   <MuiThemeProvider>

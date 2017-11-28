@@ -44,7 +44,7 @@ export const playFilteredWhiteNoise = (props) => {
     const filter = audioCtx.createBiquadFilter();
 
 
-    filter.filterType = props.params.filter;
+    filter.type = props.params.filter;
     filter.frequency.value = props.params.frequency;
     filter.gain.value = props.params.gain;
 

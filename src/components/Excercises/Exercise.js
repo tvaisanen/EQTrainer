@@ -1,4 +1,8 @@
 /**
+ * Created by tvaisanen on 11/28/17.
+ */
+
+/**
  * Created by tvaisanen on 11/27/17.
  */
 
@@ -24,13 +28,15 @@ const style = {
     wrong: {color: 'red', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
 };
 
-class LowPassCutOffLow extends Component {
+class Exercise extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: props.exercise.title,
+            played: '',
             start: false,
             debugCount: 0,
-            filter: 'lowpass',
+            filter: props.exercise.filter,
             correctAnswer: '',
             answerState: <ActionHelp style={style.icon}/>,
             answeringDisabled: false,
@@ -38,13 +44,7 @@ class LowPassCutOffLow extends Component {
             correctAnswers: 0,
             wrongAnswers: 0,
             currentFilter: {frequency: null, type: null},
-            answers: [
-                {filter: 'lowpass', label: '50 Hz', frequency: '50', id: '50', gain: 1},
-                {filter: 'lowpass', label: '100 Hz', frequency: '100', id: '100', gain: 1},
-                {filter: 'lowpass', label: '200 Hz', frequency: '200', id: '200', gain: 1},
-                {filter: 'lowpass', label: '300 Hz', frequency: '300', id: '300', gain: 1},
-                {filter: 'lowpass', label: '400 Hz', frequency: '400', id: '400', gain: 1}
-            ],
+            answers: props.exercise.answers
 
         };
         this.newQuestion = this.newQuestion.bind(this);
@@ -52,11 +52,6 @@ class LowPassCutOffLow extends Component {
 
     componentWillUpdate(){
 
-    }
-
-    componentDidUpdate(){
-        console.info('Component Updated!');
-        console.info(this.state);
     }
 
     answerButtons() {
@@ -77,6 +72,8 @@ class LowPassCutOffLow extends Component {
 
 
     setNewQuestion() {
+        console.debug(this.props);
+        console.debug(this.state);
         const possibleQuestions = this.state.answers;
         const answer = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
         this.setState({correctAnswer: answer});
@@ -146,7 +143,8 @@ class LowPassCutOffLow extends Component {
 
     view(answerState){
              return (
-                <div><h3>Low Pass Cut Off Low</h3>
+                <div className="container">
+                    <h3 className="title">{this.state.title}</h3>
                 <span>Question # {this.state.questionCount}</span>
                 <div><RaisedButton
                     icon={<AVPlayArrow />}
@@ -158,8 +156,9 @@ class LowPassCutOffLow extends Component {
                 </div>
                 <div>{answerState}</div>
 
-                {this.answerButtons()}
-
+                <div className="answer-buttons">
+                    {this.answerButtons()}
+                </div>
 
                 <div>
                     <RaisedButton
@@ -195,13 +194,18 @@ class LowPassCutOffLow extends Component {
             view = this.view(answerState);
         }
 
+        let debug = "";
+
+        if (this.state.correctAnswer){
+            debug = <div><p>{this.state.correctAnswer}</p></div>;
+        }
 
         return (
-            <div className="excercise" style={{borderStyle: 'solid'}}>
+            <div className="exercise">
                 {view}
             </div>
         )
     }
 }
 
-export default LowPassCutOffLow;
+export default Exercise;

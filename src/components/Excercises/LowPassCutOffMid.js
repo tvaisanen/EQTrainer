@@ -1,4 +1,8 @@
 /**
+ * Created by tvaisanen on 11/28/17.
+ */
+
+/**
  * Created by tvaisanen on 11/27/17.
  */
 
@@ -24,7 +28,7 @@ const style = {
     wrong: {color: 'red', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
 };
 
-class LowPassCutOffLow extends Component {
+class LowPassCutOffMid extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,11 +43,11 @@ class LowPassCutOffLow extends Component {
             wrongAnswers: 0,
             currentFilter: {frequency: null, type: null},
             answers: [
-                {filter: 'lowpass', label: '50 Hz', frequency: '50', id: '50', gain: 1},
-                {filter: 'lowpass', label: '100 Hz', frequency: '100', id: '100', gain: 1},
-                {filter: 'lowpass', label: '200 Hz', frequency: '200', id: '200', gain: 1},
-                {filter: 'lowpass', label: '300 Hz', frequency: '300', id: '300', gain: 1},
-                {filter: 'lowpass', label: '400 Hz', frequency: '400', id: '400', gain: 1}
+                {filter: 'lowpass', label: '800 Hz', frequency: '800', id: '800', gain: 1},
+                {filter: 'lowpass', label: '1.6 kHz', frequency: '1600', id: '1600', gain: 1},
+                {filter: 'lowpass', label: '3.2 kHz', frequency: '3200', id: '3200', gain: 1},
+                {filter: 'lowpass', label: '6.4 kHz', frequency: '6400', id: '6400', gain: 1},
+                {filter: 'lowpass', label: '12.8 kHz', frequency: '12800', id: '12800', gain: 1}
             ],
 
         };
@@ -55,7 +59,7 @@ class LowPassCutOffLow extends Component {
     }
 
     componentDidUpdate(){
-        console.info('Component Updated!');
+        console.info('Component Updated!')
         console.info(this.state);
     }
 
@@ -117,7 +121,7 @@ class LowPassCutOffLow extends Component {
     }
 
     enableAnswering() {
-        this.setState({answeringDisabled: false});
+        this.setState({answeringDisabled: false})
         this.setState({answerState: <ActionHelp style={style.icon}/>});
     }
 
@@ -146,7 +150,7 @@ class LowPassCutOffLow extends Component {
 
     view(answerState){
              return (
-                <div><h3>Low Pass Cut Off Low</h3>
+                <div><h3>Low Pass Cut Off Mid</h3>
                 <span>Question # {this.state.questionCount}</span>
                 <div><RaisedButton
                     icon={<AVPlayArrow />}
@@ -204,4 +208,4 @@ class LowPassCutOffLow extends Component {
     }
 }
 
-export default LowPassCutOffLow;
+export default LowPassCutOffMid;
