@@ -16,23 +16,21 @@ import AVPlayArrow from 'material-ui/svg-icons/av/play-arrow';
 import ContentForward from 'material-ui/svg-icons/content/forward';
 
 const style = {
-    margin: 12,
-};
-
-const answerStates = {
-    NOT_ANSWERED: 'not',
-    CORRECT: 'correct',
-    WRONG: 'wrong'
+    largeIcon: {width: 60, height: 60,},
+    btn: {margin: 12},
+    correct: {color: 'green', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
+    wrong: {color: 'red', margin: '12px', fontSize: 'large', fontWeight: 'bold'},
 };
 
 class LowPassCutOffLow extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            start: false,
             debugCount: 0,
             filter: 'lowpass',
             correctAnswer: '',
-            answerState: <ActionHelp/>,
+            answerState: <ActionHelp style={style.largeIcon}/>,
             answeringDisabled: false,
             questionCount: 0,
             correctAnswers: 0,
@@ -50,11 +48,20 @@ class LowPassCutOffLow extends Component {
         this.newQuestion = this.newQuestion.bind(this);
     }
 
+    componentWillUpdate(){
+
+    }
+
+    componentDidUpdate(){
+        console.info('Component Updated!')
+        console.info(this.state);
+    }
+
     answerButtons() {
         return this.state.answers.map((a, i) => (
             <RaisedButton
                 id={a.id}
-                style={style}
+                style={style.btn}
                 disabled={this.state.answeringDisabled}
                 onClick={() => this.answer(i)}
             >{a.label}</RaisedButton>
@@ -63,9 +70,7 @@ class LowPassCutOffLow extends Component {
     }
 
     componentDidMount() {
-        this.setState({debugCount: this.state.debugCount + 1})
-        this.setNewQuestion();
-
+        this.setState({debugCount: this.state.debugCount + 1});
     }
 
 
@@ -73,27 +78,31 @@ class LowPassCutOffLow extends Component {
         const possibleQuestions = this.state.answers;
         const answer = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
         this.setState({correctAnswer: answer});
+        return answer;
     }
 
     newQuestion() {
         // get the filter parameters here
-        this.setNewQuestion();
+        // correctAnswer is returned here so updating the component
+        // will not cause synch errors between playback and state
+        const correctAnswer = this.setNewQuestion();
         console.debug(this.state.correctAnswer);
-        // play new question and set the question state to not answered
+        // play new question and set the question state to not aanswered
         if (this.state.correctAnswer !== "") {
             const playedSignal = playFilteredWhiteNoise({
-                params: this.state.correctAnswer,
+                params: correctAnswer,
                 time: 0.5
             });
             this.setState({played: playedSignal});
             this.enableAnswering();
         } else {
             console.debug('played but not');
+            console.debug(this.state);
         }
     }
 
-    repeat() {
-        // todo: repeat last question
+    playQuestion() {
+        // todo: playQuestion last question
         const playedSignal = playFilteredWhiteNoise({
             params: this.state.correctAnswer,
             time: 0.5
@@ -107,17 +116,17 @@ class LowPassCutOffLow extends Component {
 
     enableAnswering() {
         this.setState({answeringDisabled: false})
-        this.setState({answerState: <ActionHelp/>});
+        this.setState({answerState: <ActionHelp style={style.largeIcon}/>});
     }
 
     correctAnswer() {
         this.setState({correctAnswers: this.state.correctAnswers + 1});
-        this.setState({answerState: <ActionThumbUp/>})
+        this.setState({answerState: <ActionThumbUp style={style.largeIcon}/>})
     }
 
     wrongAnswer() {
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
-        this.setState({answerState: <ActionThumbDown style={{size: '30px'}}/>})
+        this.setState({answerState: <ActionThumbDown style={style.largeIcon}/>})
     }
 
     answer(answer) {
@@ -133,19 +142,16 @@ class LowPassCutOffLow extends Component {
 
     }
 
-    render() {
-
-        const filter = this.state.currentFilter;
-        const answerState = this.state.answerState;
-
-        return (
-            <div className="excercise" style={{borderStyle: 'solid'}}>
-                <h3>Low Pass cut off frequencies</h3>
-                <span>{this.state.debugCount}</span>
+    view(answerState){
+             return (
+                <div><h3>Low Pass cut off frequencies</h3>
+                <span>Question # {this.state.questionCount}</span>
                 <div><RaisedButton
                     icon={<AVPlayArrow />}
-                    onClick={() => this.repeat()}
-                    style={style}
+
+                    secondary={true}
+                    onClick={() => this.playQuestion()}
+                    style={style.btn}
                 />
                 </div>
                 <div>{answerState}</div>
@@ -155,17 +161,43 @@ class LowPassCutOffLow extends Component {
 
                 <div>
                     <RaisedButton
-                        icon={<ContentForward/>}
+                        icon={<ContentForward />}
+                        primary={true}
                         onClick={() => this.newQuestion()}
-                        style={style}
+                        style={style.btn}
                     />
 
                 </div>
                 <p>correct: {JSON.stringify(this.state.correctAnswer)}</p>
                 <p>played: {JSON.stringify(this.state.played)}</p>
                 <hr/>
-                <div>{this.state.correctAnswers} / {this.state.wrongAnswers}</div>
-                <div>{this.state.questionCount}</div>
+                <div><span style={style.correct}>{this.state.correctAnswers}</span>|
+                    <span style={style.wrong}>{this.state.wrongAnswers}</span></div>
+            </div>)
+    }
+
+    render() {
+
+        const answerState = this.state.answerState;
+        let view;
+        if (this.state.correctAnswer === "" && !this.state.start){
+            //this.setNewQuestion();
+            view = <RaisedButton
+                    label="Start!"
+                    secondary={true}
+                    onClick={() => {
+                        this.newQuestion();
+                    }}
+                    style={style.btn}
+                />
+        } else {
+            view = this.view(answerState);
+        }
+
+
+        return (
+            <div className="excercise" style={{borderStyle: 'solid'}}>
+                {view}
             </div>
         )
     }

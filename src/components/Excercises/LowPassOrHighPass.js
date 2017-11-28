@@ -80,7 +80,7 @@ class LowPassOrHighPass extends Component {
     }
 
     repeat() {
-        // todo: repeat last question
+        // todo: playQuestion last question
         playFilteredWhiteNoise({
             filterOptions: this.state.currentFilter,
             time: 0.5
