@@ -76,7 +76,7 @@ export const exercises = [
     {params: lowOrHigh, component: <LowOrHighPass exercise={lowOrHigh}/>},
     {params: lowPassLowCut, component: <LowPassLowCut exercise={lowPassLowCut}/>},
     {params: lowPassMidCut, component: <LowPassMidCut exercise={lowPassMidCut}/>},
-    {params: highPassLowCut, component: <HighPassLowCut exercise={lowPassLowCut}/>},
-    {params: highPassHighCut, component: <HighPassHighCut exercise={lowPassLowCut}/>},
+    {params: highPassLowCut, component: <HighPassLowCut exercise={highPassLowCut}/>},
+    {params: highPassHighCut, component: <HighPassHighCut exercise={highPassHighCut}/>},
 
 ];
