@@ -4,9 +4,6 @@
 
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 /**
  * A simple example of `AppBar` with an icon on the right.

@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import TopBar from './components/TopBar';
-import Exercise from './components/Excercises/Exercise';
-
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import StartScreen from './components/StartScreen';
 import {exercises} from './components/Excercises/exercises';
-
-const audioCtx = new AudioContext();
-
-// Create AudioContext and buffer source
 
 
 class App extends Component {

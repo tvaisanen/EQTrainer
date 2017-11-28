@@ -40,21 +40,9 @@ const lowPassLowCut = {
     ]
 };
 
-class LowPassMidCut extends  Exercise {
-    constructor(props){
-        super(props);
-    }
-}
-class LowPasLowCut extends  Exercise {
-    constructor(props){
-        super(props);
-    }
-}
-class LowOrHighPass extends  Exercise {
-    constructor(props){
-        super(props);
-    }
-}
+class LowPassMidCut extends  Exercise {}
+class LowPasLowCut extends  Exercise {}
+class LowOrHighPass extends  Exercise {}
 
 export const exercises = [
     {params: lowOrHigh, component: <LowOrHighPass exercise={lowOrHigh}/>},
