@@ -80,7 +80,7 @@ const lowPassMidCut = {
         {filter: 'lowpass', label: '6.4 kHz', frequency: '6400', id: '6400', gain: 1},
         {filter: 'lowpass', label: '12.8 kHz', frequency: '12800', id: '12800', gain: 1}
     ]
-}
+};
 
 const lowPassLowCut = {
     title: "Low Pass Cut Off Low-Mid",
@@ -92,5 +92,5 @@ const lowPassLowCut = {
         {filter: 'lowpass', label: '300 Hz', frequency: '300', id: '300', gain: 1},
         {filter: 'lowpass', label: '400 Hz', frequency: '400', id: '400', gain: 1}
     ],
-}
+};
 

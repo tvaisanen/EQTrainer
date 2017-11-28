@@ -1,14 +1,7 @@
 /**
- * Created by tvaisanen on 11/28/17.
- */
-
-/**
  * Created by tvaisanen on 11/27/17.
  */
 
-/**
- * Created by tvaisanen on 11/27/17.
- */
 import React, {Component} from 'react';
 import {playFilteredWhiteNoise} from './audioUtils';
 import './excercise_styles.css';
@@ -75,6 +68,7 @@ class Exercise extends Component {
         console.debug(this.props);
         console.debug(this.state);
         const possibleQuestions = this.state.answers;
+        console.debug(possibleQuestions);
         const answer = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
         this.setState({correctAnswer: answer});
         return answer;
@@ -167,12 +161,13 @@ class Exercise extends Component {
                         onClick={() => this.newQuestion()}
                         style={style.btn}
                     />
-
                 </div>
 
                 <hr/>
-                <div><span style={style.correct}>{this.state.correctAnswers}</span>|
-                    <span style={style.wrong}>{this.state.wrongAnswers}</span></div>
+                <div>
+                    <span style={style.correct}>{this.state.correctAnswers}</span>|
+                    <span style={style.wrong}>{this.state.wrongAnswers}</span>
+                </div>
             </div>)
     }
 
@@ -192,12 +187,6 @@ class Exercise extends Component {
                 />
         } else {
             view = this.view(answerState);
-        }
-
-        let debug = "";
-
-        if (this.state.correctAnswer){
-            debug = <div><p>{this.state.correctAnswer}</p></div>;
         }
 
         return (
