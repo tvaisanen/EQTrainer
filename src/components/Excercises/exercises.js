@@ -40,12 +40,43 @@ const lowPassLowCut = {
     ]
 };
 
+const highPassLowCut = {
+    ctx: this,
+    title: "High Pass Cut Off Low-Mid",
+    filter: [],
+    answers: [
+        {filter: 'highpass', label: '200 Hz', frequency: '200', id: '200', gain: 1},
+        {filter: 'highpass', label: '300 Hz', frequency: '300', id: '300', gain: 1},
+        {filter: 'highpass', label: '400 Hz', frequency: '400', id: '400', gain: 1},
+        {filter: 'highpass', label: '500 Hz', frequency: '50', id: '500', gain: 1},
+        {filter: 'highpass', label: '600 Hz', frequency: '100', id: '600', gain: 1},
+    ]
+};
+
+const highPassHighCut = {
+    ctx: this,
+    title: "High Pass Cut Off High",
+    filter: [],
+    answers: [
+        {filter: 'highpass', label: '1.2 kHz', frequency: '1200', id: '1200', gain: 1},
+        {filter: 'highpass', label: '3.2 kHz', frequency: '3200', id: '3200', gain: 1},
+        {filter: 'highpass', label: '6.4 kHz', frequency: '6400', id: '6400', gain: 1},
+        {filter: 'highpass', label: '12 kHz', frequency: '12000', id: '12000', gain: 1},
+        {filter: 'highpass', label: '16 kHz', frequency: '16000', id: '16000', gain: 1},
+    ]
+};
+
 class LowPassMidCut extends  Exercise {}
-class LowPasLowCut extends  Exercise {}
+class HighPassLowCut extends  Exercise {}
+class LowPassLowCut extends  Exercise {}
+class HighPassHighCut extends  Exercise {}
 class LowOrHighPass extends  Exercise {}
 
 export const exercises = [
     {params: lowOrHigh, component: <LowOrHighPass exercise={lowOrHigh}/>},
-    {params: lowPassLowCut, component: <LowPasLowCut exercise={lowPassLowCut}/>},
+    {params: lowPassLowCut, component: <LowPassLowCut exercise={lowPassLowCut}/>},
     {params: lowPassMidCut, component: <LowPassMidCut exercise={lowPassMidCut}/>},
+    {params: highPassLowCut, component: <HighPassLowCut exercise={lowPassLowCut}/>},
+    {params: highPassHighCut, component: <HighPassHighCut exercise={lowPassLowCut}/>},
+
 ];
