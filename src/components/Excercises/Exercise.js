@@ -138,7 +138,7 @@ class Exercise extends Component {
     view(answerState){
              return (
                 <div className="container">
-                    <h3 className="title">{this.state.title}</h3>
+
                 <span>Question # {this.state.questionCount}</span>
                 <div><RaisedButton
                     icon={<AVPlayArrow />}
@@ -191,6 +191,7 @@ class Exercise extends Component {
 
         return (
             <div className="exercise">
+                <h3 className="title">{this.state.title}</h3>
                 {view}
             </div>
         )

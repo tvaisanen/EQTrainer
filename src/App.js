@@ -6,7 +6,7 @@ import Exercise from './components/Excercises/Exercise';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import StartScreen from './components/StartScreen';
 import {exercises} from './components/Excercises/exercises';
 
 const audioCtx = new AudioContext();
@@ -19,7 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             drawerOpen: false,
-            activeExercise: '',
+            activeExercise: <StartScreen/>,
         }
     }
 
