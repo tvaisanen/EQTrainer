@@ -118,6 +118,7 @@ class Exercise extends Component {
     }
 
     wrongAnswer() {
+        // todo: this.indicateRighAnswer();
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
         this.setState({answerState: <ActionThumbDown style={style.iconWrong}/>})
     }
@@ -173,11 +174,14 @@ class Exercise extends Component {
 
     render() {
 
+        // define icon from [waiting for answer, right/wrong answer]
         const answerState = this.state.answerState;
         let view;
         if (this.state.correctAnswer === "" && !this.state.start){
             //this.setNewQuestion();
-            view = <RaisedButton
+            view = <div>
+                <p>{this.props.exercise.instructions}</p>
+                <RaisedButton
                     label="Start!"
                     secondary={true}
                     onClick={() => {
@@ -185,6 +189,7 @@ class Exercise extends Component {
                     }}
                     style={style.btn}
                 />
+            </div>
         } else {
             view = this.view(answerState);
         }
