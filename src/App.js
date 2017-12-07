@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import StartScreen from './components/StartScreen';
 import {exercises} from './components/Excercises/exercises';
 
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +14,11 @@ class App extends Component {
             activeExercise: <StartScreen/>,
         }
     }
+
+    setStartScreen = () => {
+        this.setState({activeExercise: <StartScreen/>})
+    }
+
 
     setDrawerState = (open) => {
         this.setState({drawerOpen: open});
@@ -34,11 +38,13 @@ class App extends Component {
     drawerClose = () => this.setState({drawerOpen: false});
 
     render() {
-
         return (
             <div className="App">
-                <TopBar drawerToggle={this.drawerToggle}/>
+                <TopBar
+                    drawerToggle={this.drawerToggle}
+                    goToStartScreen={this.setStartScreen}/>
                 {this.state.activeExercise}
+                <AdComponent/>
                 <DrawerMenu
                     handleClose={this.drawerClose}
                     setDrawerState={this.setDrawerState}
@@ -53,12 +59,12 @@ class App extends Component {
 
 export default App;
 
-const menuItems = (exercises, onClick) => {
+const menuItems = (exercises, onClick) => {
     return (
         exercises.map((exercise, i) => (
-            <MenuItem onClick={() => onClick(i)}>{exercise.params.title}</MenuItem>
-        )
-    ));
+                <MenuItem onClick={() => onClick(i)}>{exercise.params.title}</MenuItem>
+            )
+        ));
 };
 
 class DrawerMenu extends Component {
@@ -73,6 +79,23 @@ class DrawerMenu extends Component {
                     {menuItems(exercises, this.props.menuSelect)}
                 </Drawer>
             </div>
+        );
+    }
+}
+
+
+class AdComponent extends Component {
+    componentDidMount() {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+
+    render() {
+        return (
+            <ins className='adsbygoogle'
+                 style={{display: "inline-block", width: "728px", height: "90px"}}
+                 data-ad-client="ca-pub-8722970660404042"
+                 data-ad-slot="8100700193"
+                 data-ad-format='auto'/>
         );
     }
 }

@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import {playFilteredWhiteNoise} from './audioUtils';
 import './excercise_styles.css';
 import RaisedButton from 'material-ui/RaisedButton';
-import ActionHelp from 'material-ui/svg-icons/action/help';
+import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline';
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
 import AVPlayArrow from 'material-ui/svg-icons/av/play-arrow';
@@ -31,14 +31,16 @@ class Exercise extends Component {
             debugCount: 0,
             filter: props.exercise.filter,
             correctAnswer: '',
-            answerState: <ActionHelp style={style.icon}/>,
+            answerState: <ActionHelpOutline style={style.icon}/>,
             answeringDisabled: false,
             questionCount: 0,
             correctAnswers: 0,
             wrongAnswers: 0,
             currentFilter: {frequency: null, type: null},
-            answers: props.exercise.answers
-
+            answers: props.exercise.answers,
+            indicateCorrectAnswer: false,
+            indicateWrongAnswer: false,
+            wrongAnswer: false,
         };
         this.newQuestion = this.newQuestion.bind(this);
     }
@@ -78,6 +80,8 @@ class Exercise extends Component {
         // get the filter parameters here
         // correctAnswer is returned here so updating the component
         // will not cause synch errors between playback and state
+
+        this.setState({wrongAnswer: false});
         const correctAnswer = this.setNewQuestion();
         console.debug(this.state.correctAnswer);
         // play new question and set the question state to not aanswered
@@ -109,7 +113,7 @@ class Exercise extends Component {
 
     enableAnswering() {
         this.setState({answeringDisabled: false});
-        this.setState({answerState: <ActionHelp style={style.icon}/>});
+        this.setState({answerState: <ActionHelpOutline style={style.icon}/>});
     }
 
     correctAnswer() {
@@ -117,19 +121,30 @@ class Exercise extends Component {
         this.setState({answerState: <ActionThumbUp style={style.iconCorrect}/>})
     }
 
-    wrongAnswer() {
+    wrongAnswer(answer) {
         // todo: this.indicateRighAnswer();
+        this.setState({wrongAnswer: true});
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
         this.setState({answerState: <ActionThumbDown style={style.iconWrong}/>})
     }
 
     answer(answer) {
-        const answerIsCorrect = this.state.answers[answer] === this.state.correctAnswer;
+        const userAnswer = this.state.answers[answer];
+        const correctAnswer = this.state.correctAnswer;
+        const answerIsCorrect = userAnswer === correctAnswer;
         if (answerIsCorrect) {
             this.correctAnswer();
         } else {
             this.wrongAnswer();
         }
+
+        this.setState({indicateCorrectAnswer: true});
+        this.setState({indicateWrongAnswer: true});
+
+        console.group('Info indicate correct answer!');
+        console.debug(this.state.correctAnswer.id);
+        console.debug(correctAnswer);
+        console.groupEnd();
 
         this.setState({questionCount: this.state.questionCount + 1});
         this.disableAnswering();
@@ -137,24 +152,28 @@ class Exercise extends Component {
     }
 
     view(answerState){
+        let correctAnswer = " ";
+        if (this.state.wrongAnswer){
+            correctAnswer = this.state.correctAnswer.label;
+        }
              return (
                 <div className="container">
 
-                <span>Question # {this.state.questionCount}</span>
-                <div><RaisedButton
-                    icon={<AVPlayArrow />}
+                <div>
+                    <RaisedButton
+                        icon={<AVPlayArrow />}
 
-                    secondary={true}
-                    onClick={() => this.playQuestion()}
-                    style={style.btn}
-                />
+                        secondary={true}
+                        onClick={() => this.playQuestion()}
+                        style={style.btn}
+                    />
                 </div>
                 <div>{answerState}</div>
 
                 <div className="answer-buttons">
                     {this.answerButtons()}
                 </div>
-
+                    <span>{correctAnswer}</span>
                 <div>
                     <RaisedButton
                         icon={<ContentForward />}
