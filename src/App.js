@@ -44,7 +44,6 @@ class App extends Component {
                     drawerToggle={this.drawerToggle}
                     goToStartScreen={this.setStartScreen}/>
                 {this.state.activeExercise}
-                <AdComponent/>
                 <DrawerMenu
                     handleClose={this.drawerClose}
                     setDrawerState={this.setDrawerState}
@@ -52,6 +51,9 @@ class App extends Component {
                     menuSelect={this.drawerMenuSelect}
                     open={this.state.drawerOpen}
                 />
+                <div id="radd">
+                <AdComponent/>
+                </div>
             </div>
         );
     }
