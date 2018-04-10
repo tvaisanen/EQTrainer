@@ -6,6 +6,7 @@
     "react-scripts": "1.0.17"
   },
   "dependencies": {
+    "firebase": "^4.12.1",
     "material-ui": "^0.19.4",
     "react": "^16.1.1",
     "react-adsense": "0.0.3",
