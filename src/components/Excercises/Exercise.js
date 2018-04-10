@@ -41,6 +41,8 @@ class Exercise extends Component {
             indicateCorrectAnswer: false,
             indicateWrongAnswer: false,
             wrongAnswer: false,
+            soundDuration: 1,
+            repeatInterval: 1
         };
         this.newQuestion = this.newQuestion.bind(this);
     }
@@ -81,14 +83,18 @@ class Exercise extends Component {
         // correctAnswer is returned here so updating the component
         // will not cause synch errors between playback and state
 
+        // reset answer state
         this.setState({wrongAnswer: false});
+
+        // set the new correct answer to be compared against to
         const correctAnswer = this.setNewQuestion();
         console.debug(this.state.correctAnswer);
-        // play new question and set the question state to not aanswered
+
+        // play new question and set the question state to not answered
         if (this.state.correctAnswer !== "") {
             const playedSignal = playFilteredWhiteNoise({
                 params: correctAnswer,
-                time: 0.5
+                time: this.state.soundDuration
             });
             this.setState({played: playedSignal});
             this.enableAnswering();
@@ -102,13 +108,18 @@ class Exercise extends Component {
         // todo: playQuestion last question
         const playedSignal = playFilteredWhiteNoise({
             params: this.state.correctAnswer,
-            time: 0.5
+            time: this.state.soundDuration
         });
         this.setState({played: playedSignal});
     }
 
     disableAnswering() {
         this.setState({answeringDisabled: true})
+    }
+
+    getRepeatInterval(){
+        // seconds to milliseconds conversion
+        return this.state.repeatInterval * 1000;
     }
 
     enableAnswering() {
@@ -119,6 +130,7 @@ class Exercise extends Component {
     correctAnswer() {
         this.setState({correctAnswers: this.state.correctAnswers + 1});
         this.setState({answerState: <ActionThumbUp style={style.iconCorrect}/>})
+        setTimeout(this.newQuestion, this.getRepeatInterval());
     }
 
     wrongAnswer(answer) {
@@ -126,6 +138,8 @@ class Exercise extends Component {
         this.setState({wrongAnswer: true});
         this.setState({wrongAnswers: this.state.wrongAnswers + 1});
         this.setState({answerState: <ActionThumbDown style={style.iconWrong}/>})
+        setTimeout(this.newQuestion, this.getRepeatInterval());
+    
     }
 
     answer(answer) {
@@ -162,8 +176,8 @@ class Exercise extends Component {
                 <div>
                     <RaisedButton
                         icon={<AVPlayArrow />}
-
                         secondary={true}
+                        componentDidMount={()=> this.playQuestion()}
                         onClick={() => this.playQuestion()}
                         style={style.btn}
                     />
@@ -205,9 +219,18 @@ class Exercise extends Component {
                     secondary={true}
                     onClick={() => {
                         this.newQuestion();
+                        
                     }}
                     style={style.btn}
                 />
+                <br/>
+                sample duration (s)
+                <br/>
+                <input style={{width: 50}}type="number" value={this.state.soundDuration} onChange={(e)=>this.setState({soundDuration: e.target.value})}></input>
+                <br/>
+                 load next question in (s)
+                <br/>
+                <input style={{width: 50}}type="number" value={this.state.repeatInterval} onChange={(e)=>this.setState({repeatInterval: e.target.value})}></input>
             </div>
         } else {
             view = this.view(answerState);
